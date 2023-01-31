@@ -1,10 +1,23 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import BookCreate from "./components/BookCreate";
 import BookList from "./components/BookList";
 
 function App() {
   const [books, setBooks] = useState([]);
+
+  const fetchBooks = async () => {
+    const response = await axios.get("http://localhost:3001/books");
+    setBooks(response.data);
+  };
+
+  // Dont do this:
+  //fetchBooks() it keeps  get request infinitive
+
+  useEffect(() => {
+    fetchBooks();
+  }, []);
 
   const deleteBookById = (id) => {
     const updateBooks = books.filter((book) => {
@@ -13,10 +26,13 @@ function App() {
     setBooks(updateBooks);
   };
 
-  const createBook = (title) => {
-    // console.log("Need to add book title", title);
+  const createBook = async (title) => {
+    const response = await axios.post("http://localhost:3001/books", {
+      title: title,
+    });
+    console.log("response=>", response);
     setBooks((prev) => {
-      return [...prev, { id: Math.round(Math.random() * 999), title: title }];
+      return [...prev, response.data];
     });
   };
 
