@@ -7,6 +7,8 @@ function BookCreate() {
 
   const [title, setTitle] = useState("");
   const { createBook } = useContext(BooksContext);
+  // const context = useContext(BooksContext);
+  //console.log("context", context.createBook);
 
   const handleChange = (event) => {
     setTitle(event.target.value);
