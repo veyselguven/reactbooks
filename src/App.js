@@ -6,6 +6,7 @@ import { useContext } from "react";
 import BooksContext from "./context/books";
 
 function App() {
+  console.log("BooksContext=>", BooksContext);
   const { fetchBooks } = useContext(BooksContext);
 
   useEffect(() => {
